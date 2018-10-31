@@ -1,4 +1,5 @@
 import json
+import operator
 
 def main():
     with open('county_demographics.json') as demographics_data:
@@ -28,11 +29,18 @@ def most_under_18(counties):
 def state_with_most_counties(counties):
     """Return a state that has the most counties."""
     #Make a dictionary that has a key for each state and the values keep track of the number of counties in each state
+    states = {}
     
     #Find the state in the dictionary with the most counties
+    for c in counties:
+        state = c["State"]
+        if state in states:
+            states[state] += 1
+        else:
+            states[state] = 1
     
     #Return the state with the most counties
-    
+    return sorted(states.items(), key=operator.itemgetter(1))[0]
     
 def your_interesting_demographic_function(counties):
     """Compute and return an interesting fact using the demographic data about the counties in the US."""
