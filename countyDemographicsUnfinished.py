@@ -7,23 +7,38 @@ def main():
     print(county_most_under_18(counties))
     print(percent_most_under_18(counties))
     print(most_under_18(counties))
-    print(state_with_most_counties(counties))
-
+    #print(state_with_most_counties(counties))
+    
 def alphabetically_first_county(counties):
     """Return the county with the name that comes first alphabetically."""
+    count = [None]
+    for c in counties:
+        count.append(c["County"])
+    return 0
 
-
+def high_18(counties):
+    idx = 0
+    for i in range(len(counties)):
+        if counties[i]["Age"]["Percent Under 18 Years"] > counties[idx]["Age"]["Percent Under 18 Years"]:
+            idx = i
+    return counties[idx]["County"], counties[idx]["State"], counties[idx]["Age"]["Percent Under 18 Years"]
+    
 def county_most_under_18(counties):
     """Return the name and state of a county ("<county name>, <state>") with the highest percent of under 18 year olds."""
+    a, b, c = high_18(counties)
+    return a + ", " + b
 
     
 def percent_most_under_18(counties):
     """Return the highest percent of under 18 year olds."""
+    a, b, c = high_18(counties)
+    return c
 
     
 def most_under_18(counties):
     """Return a list with the name and state of a county ("<county name>, <state>") and the percent of under 18 year olds for a county with the highest percent of under 18 year olds."""
-
+    a, b, c = high_18(counties)
+    return a + ", " + b + ": " + str(c)
     
 def state_with_most_counties(counties):
     """Return a state that has the most counties."""
