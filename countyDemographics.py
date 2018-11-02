@@ -9,6 +9,7 @@ def main():
     print(percent_most_under_18(counties))
     print(most_under_18(counties))
     print(state_with_most_counties(counties))
+    print(highest_house_density(counties))
     
 def alphabetically_first_county(counties):
     """Return the county with the name that comes first alphabetically."""
@@ -58,8 +59,15 @@ def state_with_most_counties(counties):
     state = sorted(states.items(), key=operator.itemgetter(1))[len(states)-1]
     return state[0] + ": " + str(state[1])
     
-def your_interesting_demographic_function(counties):
+def highest_house_density(counties):
     """Compute and return an interesting fact using the demographic data about the counties in the US."""
+    #[Housing][Persons per Household]
+    idx = 0
+    for i in range(len(counties)):
+        if counties[i]["Housing"]["Persons per Household"] > counties[idx]["Housing"]["Persons per Household"]:
+            idx = i
+    return counties[idx]["County"] + ", " + counties[idx]["State"] + ": " + str(counties[idx]["Housing"]["Persons per Household"])
+    
 
 if __name__ == '__main__':
     main()
